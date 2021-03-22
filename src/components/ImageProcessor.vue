@@ -182,7 +182,7 @@ form {
   width: 100%;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: calc(72vh - 60px);
+  min-height: calc(68vh - 60px);
 
   .uploader {
     cursor: pointer;

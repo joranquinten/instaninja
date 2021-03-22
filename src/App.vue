@@ -4,12 +4,11 @@
       <div class="d-flex align-center">
         <v-img
           src="./assets/instaninja.svg"
-          height="40"
-          width="40"
+          height="32"
+          width="32"
           contain
         ></v-img>
-        Insta<strong>Ninja</strong> &ndash; Slice up your&nbsp;&nbsp;u l t r a w
-        i d e&nbsp;&nbsp;shots
+        Insta<strong>Ninja</strong>
       </div>
 
       <v-spacer></v-spacer>
@@ -17,6 +16,7 @@
       <v-btn
         href="https://github.com/joranquinten/instaninja/releases/latest"
         target="_blank"
+        title="Latest release"
         text
       >
         <v-icon>mdi-open-in-new</v-icon>
