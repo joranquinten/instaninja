@@ -2,7 +2,14 @@
   <v-app>
     <v-app-bar app color="purple" dark>
       <div class="d-flex align-center">
-        Insta<strong>Ninja</strong> &ndash; Slice up your&nbsp;&nbsp;u l t r a w i d e&nbsp;&nbsp;shots
+        <v-img
+          src="./assets/instaninja.svg"
+          height="40"
+          width="40"
+          contain
+        ></v-img>
+        Insta<strong>Ninja</strong> &ndash; Slice up your&nbsp;&nbsp;u l t r a w
+        i d e&nbsp;&nbsp;shots
       </div>
 
       <v-spacer></v-spacer>
