@@ -19,6 +19,14 @@
         :dimensions="dimensions"
       ></Summary>
 
+      <v-select
+        v-if="dimensions && dimensions.original"
+        :items="backgroundStyles"
+        v-model="backgroundStyle"
+        label="Select background style"
+        outlined
+      ></v-select>
+
       <v-btn
         x-large
         color="pink"
@@ -55,8 +63,8 @@
 </template>
 
 <script>
-const sharp = require("sharp");
 const electron = require("electron");
+const sharp = require("sharp");
 const { dialog } = electron.remote;
 
 import { processDimensions, suffixFileName } from "@/utils/helpers";
@@ -71,6 +79,12 @@ export default {
   data() {
     return {
       file: null,
+      backgroundStyle: "blurred",
+      backgroundStyles: [
+        { text: "Blurred (default)", value: "blurred" },
+        { text: "Black", value: "#000000" },
+        { text: "White", value: "#FFFFFF" },
+      ],
       newFileName: "",
       isProcessing: false,
       dimensions: {},
@@ -132,10 +146,17 @@ export default {
 
       const fileName = suffixFileName(filePath, "blurred");
 
+      const backgroundStyle =
+        this.isValidColor(this.backgroundStyle) ||
+        this.backgroundStyle === "blurred"
+          ? this.backgroundStyle
+          : "blurred";
+
       const blurredImage = await blurImage(
         data.path,
         this.dimensions.crop.square,
-        this.dimensions.original.mode
+        this.dimensions.original.mode,
+        backgroundStyle
       );
 
       const {
@@ -171,6 +192,9 @@ export default {
       this.isProcessing = false;
       this.isDone = true;
       this.reset();
+    },
+    isValidColor(input) {
+      return /^#([0-9A-F]{3}){1,2}$/i.test(input);
     },
   },
 };
