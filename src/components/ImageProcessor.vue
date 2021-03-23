@@ -1,48 +1,51 @@
 <template>
   <v-container>
-    <form enctype="multipart/form-data">
-      <v-file-input
-        :disabled="isProcessing"
-        color="pink"
-        accept="image/*"
-        label="Select an image to slice"
-        filled
-        id="file-input"
-        prepend-icon="mdi-camera"
-        v-model="file"
-        @change="handleFile"
-        class="uploader"
-      ></v-file-input>
+    <v-row>
+      <v-col>
+        <form enctype="multipart/form-data">
+          <v-file-input
+            :disabled="isProcessing"
+            color="pink"
+            accept="image/*"
+            label="Select an image to slice"
+            filled
+            id="file-input"
+            prepend-icon="mdi-camera"
+            v-model="file"
+            @change="handleFile"
+            class="uploader"
+          ></v-file-input>
 
-      <Summary
-        v-if="dimensions && dimensions.original"
-        :dimensions="dimensions"
-      ></Summary>
+          <v-select
+            v-if="dimensions && dimensions.original"
+            :items="backgroundStyles"
+            v-model="backgroundStyle"
+            label="Select background style"
+            outlined
+          ></v-select>
 
-      <v-select
-        v-if="dimensions && dimensions.original"
-        :items="backgroundStyles"
-        v-model="backgroundStyle"
-        label="Select background style"
-        outlined
-      ></v-select>
-
-      <v-btn
-        x-large
-        color="pink"
-        v-if="dimensions && dimensions.original"
-        :disabled="isProcessing"
-        @click.prevent="generate"
-      >
-        {{
-          `Unleash ${dimensions.crop.squares.length + 1} ninja${
-            dimensions.crop.squares.length > 1 ? "s" : ""
-          }`
-        }}
-      </v-btn>
-    </form>
-
-    <v-textarea v-model="logged" filled disabled class="logger"></v-textarea>
+          <v-btn
+            x-large
+            color="pink"
+            v-if="dimensions && dimensions.original"
+            :disabled="isProcessing"
+            @click.prevent="generate"
+          >
+            {{
+              `Unleash ${dimensions.crop.squares.length + 1} ninja${
+                dimensions.crop.squares.length > 1 ? "s" : ""
+              }`
+            }}
+          </v-btn>
+        </form>
+      </v-col>
+      <v-col>
+        <slice-summary
+          v-if="dimensions && dimensions.original"
+          :dimensions="dimensions"
+        ></slice-summary>
+      </v-col>
+    </v-row>
 
     <v-snackbar v-model="isDone">
       Slicing is done!
@@ -70,11 +73,11 @@ const { dialog } = electron.remote;
 import { processDimensions, suffixFileName } from "@/utils/helpers";
 import { blurImage } from "@/utils/image";
 
-import Summary from "./Summary";
+import sliceSummary from "./Summary";
 
 export default {
   components: {
-    Summary,
+    sliceSummary,
   },
   data() {
     return {
@@ -92,14 +95,9 @@ export default {
       messages: [],
     };
   },
-  computed: {
-    logged() {
-      return this.messages.join("\n");
-    },
-  },
   methods: {
     logger(message = "") {
-      this.messages = [...this.messages, message];
+      this.$emit('logger', message)
     },
     reset() {
       this.file = null;
@@ -202,11 +200,7 @@ export default {
 
 <style lang="scss" scoped>
 form {
-  display: flex;
   width: 100%;
-  flex-direction: column;
-  justify-content: flex-start;
-  min-height: calc(68vh - 60px);
 
   .uploader {
     cursor: pointer;
@@ -222,6 +216,6 @@ form {
   }
 }
 .logger {
-  height: 20vh;
+  height: 10vh;
 }
 </style>

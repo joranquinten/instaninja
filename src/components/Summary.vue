@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="summary" elevation="10" rounded v-if="dimensions">
+  <v-sheet class="summary" rounded v-if="dimensions">
     <div v-html="`<p>${original} ${result}</p><p>${nextStep}</p>`"></div>
   </v-sheet>
 </template>
@@ -37,7 +37,7 @@ export default {
 
 <style>
 .summary {
-  margin: 2em 0;
+  margin: 0 0 2em;
   padding: 1em;
 }
 </style>

@@ -1,7 +1,7 @@
 {
   "name": "insta-ninja",
   "author": "Joran Quinten <joran@joranquinten.nl>",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
