@@ -52,13 +52,29 @@ export const getFileNameFromPath = (path) => {
 export const suffixFileName = (path = "", suffix = "") => {
   const fileName = getFileNameFromPath(path);
 
+  let safeSuffix = suffix.replace(/[^a-z0-9]/gi, "").toLowerCase();
+
+  switch (safeSuffix) {
+    case "000000":
+      safeSuffix = "black";
+      break;
+    case "ffffff":
+      safeSuffix = "white";
+      break;
+  }
+
   const levels = path.split("/");
   return levels
     .map((level, i) => {
-      if (i === levels.length - 1 && suffix !== "") {
-        return level.replaceAll(`${fileName}.`, `${fileName}-${suffix}.`);
+      if (i === levels.length - 1 && safeSuffix !== "") {
+        return level.replaceAll(`${fileName}.`, `${fileName}-${safeSuffix}.`);
       }
       return level;
     })
     .join("/");
 };
+
+export const isHexValue = (input) => /^#([0-9A-F]{3}){1,2}$/i.test(input);
+
+export const getBackgroundStyle = (input) =>
+  isHexValue(input) ? input : "blurred";
