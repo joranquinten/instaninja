@@ -24,8 +24,17 @@
     </v-app-bar>
 
     <v-main>
-      <image-processor></image-processor>
+      <image-processor @logger="logger"></image-processor>
     </v-main>
+    <v-footer>
+      <v-textarea
+        v-model="logged"
+        filled
+        readonly
+        rows="2"
+        class="logger"
+      ></v-textarea>
+    </v-footer>
   </v-app>
 </template>
 
@@ -38,9 +47,20 @@ export default {
   components: {
     ImageProcessor,
   },
-
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      messages: [],
+    };
+  },
+  computed: {
+    logged() {
+      return this.messages.join("\n");
+    },
+  },
+  methods: {
+    logger(message = "") {
+      this.messages = [message, ...this.messages];
+    },
+  },
 };
 </script>
