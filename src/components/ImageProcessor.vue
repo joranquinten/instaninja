@@ -70,7 +70,11 @@ const electron = require("electron");
 const sharp = require("sharp");
 const { dialog } = electron.remote;
 
-import { processDimensions, suffixFileName } from "@/utils/helpers";
+import {
+  processDimensions,
+  suffixFileName,
+  getBackgroundStyle,
+} from "@/utils/helpers";
 import { blurImage } from "@/utils/image";
 
 import sliceSummary from "./Summary";
@@ -141,14 +145,8 @@ export default {
 
       this.newFileName = await this.getFilePath("insta-ninja-sliced.jpg");
       const { filePath } = this.newFileName;
-
-      const fileName = suffixFileName(filePath, "blurred");
-
-      const backgroundStyle =
-        this.isValidColor(this.backgroundStyle) ||
-        this.backgroundStyle === "blurred"
-          ? this.backgroundStyle
-          : "blurred";
+      const backgroundStyle = getBackgroundStyle(this.backgroundStyle);
+      const fileName = suffixFileName(filePath, backgroundStyle);
 
       const blurredImage = await blurImage(
         data.path,
@@ -184,15 +182,12 @@ export default {
         await sharp(blurredImage).toFile(fileName);
         this.logger(`Generated: ${fileName}`);
       } catch (e) {
-        this.messages = [...this.messages, JSON.stringify(e)];
+        throw e.message;
       }
 
       this.isProcessing = false;
       this.isDone = true;
       this.reset();
-    },
-    isValidColor(input) {
-      return /^#([0-9A-F]{3}){1,2}$/i.test(input);
     },
   },
 };
