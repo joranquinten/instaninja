@@ -7,6 +7,8 @@ This is a repo that builds an electron app for Mac. The purpose of the app is to
 
 When you upload an image, the file will get analysed by the software which outputs it as a square image by taking in the longest dimension and providing a blurred instance of the image as a background. If the image is recognized as having an aspect ratio higher than 2:1, it calculates the optimal distribution of squares to split the image into.
 
+For the cover image, you can optionally select the type of backdrop (blurred by default, black or white).
+
 Once the slicing is done, it'll ask for a target location and output the files to the designated folder. You can then manually upload those to Instagram.
 
 ### Download
@@ -25,7 +27,7 @@ The reason I've built this project is because when I wanted to upload panoramic 
 
 Although both methods work (usually), I've found it very tedious since on my feed, I *always* want a blurred image to precede the squares. I always need to manually recreate them. Since I'm a developer I thought, what the heck, let's build something for me then. And I did.
 
-It's not polished and it doesn't give me the options of aligning the generated squares or selecting something else than a blurred background (maybe later!), but it does offer sane default that work **for me**. If they do for you too, feel free to use this program yourself! 🖖
+It's not polished and it doesn't give me the options of aligning the generated squares, but it does offer sane default that work **for me**. If they do for you too, feel free to use this program yourself! 🖖
 
 ### Tooling
 

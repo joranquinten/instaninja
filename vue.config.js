@@ -3,11 +3,10 @@ module.exports = {
     electronBuilder: {
       nodeIntegration: true,
       builderOptions: {
-
         publish: ['github'],
         appId: "com.electron.instaninja",
         productName: "InstaNinja",
-        copyright: "Copyright © year ${author}",
+        copyright: "Copyright © 2021 ${author}",
         mac: {
           category: "public.app-category.utilities",
           icon: "./src/assets/icons/mac/icon.icns",
