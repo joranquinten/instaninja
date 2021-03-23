@@ -96,8 +96,8 @@ export default {
     };
   },
   methods: {
-    logger(message = "") {
-      this.$emit('logger', message)
+    logger(message) {
+      if (message) this.$emit("logger", message);
     },
     reset() {
       this.file = null;
