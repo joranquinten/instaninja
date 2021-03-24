@@ -5,10 +5,32 @@ const template = [
     label: "InstaNinja",
     submenu: [
       {
-        label: "Go to InstaNinja Website",
-        click() {
-          shell.openExternal("https://github.com/joranquinten/instaninja/");
-        },
+        role: "about",
+      },
+      {
+        type: "separator",
+      },
+      {
+        role: "services",
+        submenu: [],
+      },
+      {
+        type: "separator",
+      },
+      {
+        role: "hide",
+      },
+      {
+        role: "hideothers",
+      },
+      {
+        role: "unhide",
+      },
+      {
+        type: "separator",
+      },
+      {
+        role: "quit",
       },
     ],
   },
@@ -53,13 +75,13 @@ const template = [
     role: "help",
     submenu: [
       {
-        label: "Learn More",
+        label: "Go to InstaNinja Website",
         click() {
-          shell.openExternal("http://electron.atom.io");
+          shell.openExternal("https://github.com/joranquinten/instaninja/");
         },
       },
       {
-        label: "Buy me a coffee",
+        label: "Buy me a coffee ☕️",
         click() {
           shell.openExternal("https://www.buymeacoffee.com/joranquinten");
         },

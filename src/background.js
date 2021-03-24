@@ -11,33 +11,6 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
-// const MENU = [
-//   {
-//     label: "Menu",
-//     submenu: [
-//       {
-//         label: "Go to InstaNinja Website",
-//         click() {
-//           shell.openExternal("https://github.com/joranquinten/instaninja/");
-//         },
-//       },
-//       {
-//         label: "Buy me a coffee",
-//         click() {
-//           shell.openExternal("https://www.buymeacoffee.com/joranquinten");
-//         },
-//       },
-//       { type: "separator" },
-//       {
-//         label: "Exit",
-//         click() {
-//           app.quit();
-//         },
-//       },
-//     ],
-//   },
-// ];
-
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
