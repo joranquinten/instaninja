@@ -1,14 +1,31 @@
 <template>
   <v-sheet class="summary" rounded v-if="dimensions">
-    <div v-html="`<p>${original} ${result}</p><p>${nextStep}</p>`"></div>
+    <preview-image
+    :key="imageUrl"
+      v-if="imageUrl"
+      :imageUrl="imageUrl"
+      :dimensions="dimensions"
+    />
+    <div
+      v-html="`<p>${original} ${result} ${preview}</p><p>${nextStep}</p>`"
+    ></div>
   </v-sheet>
 </template>
 <script>
+import PreviewImage from "./PreviewImage";
 export default {
+  components: {
+    PreviewImage,
+  },
   props: {
     dimensions: {
       type: Object,
       required: true,
+    },
+    imageUrl: {
+      type: String,
+      required: false,
+      default: undefined,
     },
   },
   computed: {
@@ -28,6 +45,11 @@ export default {
         ? "I will <strong>not</strong> slice into multiple squares, but I'll do you the favor of creating a square out of the original with a blurred background. 👌"
         : `I will slice this into <strong>${squares.length}</strong> squares and will create a square out of the original with a blurred background. 🤙`;
     },
+    preview() {
+      return this.imageUrl
+        ? `The image above gives a decent representation of the expected slices.`
+        : "";
+    },
     nextStep() {
       return `Pick a new photo, or click the Generate button to unleash slashing ninjas on your precious work of art.`;
     },
@@ -35,9 +57,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .summary {
   margin: 0 0 2em;
   padding: 1em;
+
+  .example {
+    margin: 0 auto;
+  }
 }
 </style>

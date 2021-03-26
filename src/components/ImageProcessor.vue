@@ -43,6 +43,7 @@
         <slice-summary
           v-if="dimensions && dimensions.original"
           :dimensions="dimensions"
+          :image-url="getImageUrl(file)"
         ></slice-summary>
       </v-col>
     </v-row>
@@ -108,10 +109,11 @@ export default {
       this.isProcessing = false;
       this.dimensions = {};
     },
+    getImageUrl(path) {
+      return path ? URL.createObjectURL(path) : undefined;
+    },
     handleFile() {
-      const url = URL.createObjectURL(this.file);
       const img = new Image();
-
       img.onload = async () => {
         const { width, height } = img;
         this.dimensions = processDimensions(width, height);
@@ -119,7 +121,8 @@ export default {
 
         this.logger(`File ${this.file.name} selected`);
       };
-      img.src = url;
+
+      img.src = this.getImageUrl(this.file);
     },
     async getFilePath(filename = "example.jpg") {
       const browserWindow = electron.remote.getCurrentWindow();
