@@ -20,7 +20,14 @@ export default {
     },
   },
   computed: {
+    mode() {
+      const { original, aspectRatio } = this.dimensions;
+      return aspectRatio.original === 1 ? "square" : original.mode;
+    },
     original() {
+      if (this.mode === "square") {
+        return ` Did you realise that it's already perfectly square?`;
+      }
       const { original, aspectRatio } = this.dimensions;
       const addendum =
         aspectRatio.original >= 2
@@ -29,6 +36,10 @@ export default {
       return `I've detected a pretty ${original.mode} photo with a resolution of <strong>${original.width}px</strong> ✕ <strong>${original.height}px</strong> 👀.${addendum}`;
     },
     result() {
+      if (this.mode === "square") {
+        return `Not going to slice anything!`;
+      }
+
       const {
         crop: { squares },
       } = this.dimensions;
@@ -37,12 +48,14 @@ export default {
         : `I will slice this into <strong>${squares.length}</strong> squares and will create a square out of the original with a blurred background. 🤙`;
     },
     preview() {
-      return this.imageUrl
-        ? `The image above gives a decent representation of the expected slices.`
+      return this.imageUrl && this.mode !== "square"
+        ? `The image to the right gives a decent representation of the expected slices.`
         : "";
     },
     nextStep() {
-      return `Pick a new photo, or click the Generate button to unleash slashing ninjas on your precious work of art.`;
+      return this.mode === "square"
+        ? `Please pick a new photo`
+        : `Pick a new photo, or click the Generate button to unleash slashing ninjas on your precious work of art.`;
     },
   },
 };

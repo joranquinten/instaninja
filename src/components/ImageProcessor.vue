@@ -17,7 +17,7 @@
           ></v-file-input>
 
           <v-select
-            v-if="isImageLoaded"
+            v-if="isImageLoaded && !isSquareImage"
             :items="backgroundStyles"
             v-model="backgroundStyle"
             label="Select background style"
@@ -27,7 +27,7 @@
           <v-btn
             x-large
             color="pink"
-            v-if="isImageLoaded"
+            v-if="isImageLoaded && !isSquareImage && dimensions.crop"
             :disabled="isProcessing"
             @click.prevent="generate"
           >
@@ -207,6 +207,16 @@ export default {
       this.isProcessing = false;
       this.isDone = true;
       this.reset();
+    },
+  },
+  computed: {
+    isSquareImage() {
+      return (
+        this.isImageLoaded &&
+        this.dimensions &&
+        this.dimensions.aspectRatio &&
+        this.dimensions.aspectRatio.original === 1
+      );
     },
   },
 };

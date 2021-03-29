@@ -22,6 +22,7 @@
         </div>
       </div>
       <div
+        v-if="mode !== 'square'"
         class="square crop"
         :class="{ landscape: mode === 'landscape' }"
         :style="{ width: `${cropSquare}px`, height: `${cropSquare}px` }"
@@ -29,7 +30,13 @@
         {{ this.mode === "landscape" ? "Crop" : "Square" }}
       </div>
     </div>
-    <figcaption>☝️ Expected slices</figcaption>
+    <figcaption>
+      {{
+        mode === "square"
+          ? "👀 Look! It's already square!"
+          : "☝️ Expected slices"
+      }}
+    </figcaption>
   </figure>
 </template>
 
@@ -52,8 +59,8 @@ export default {
   },
   computed: {
     mode() {
-      const { original } = this.dimensions;
-      return original.mode;
+      const { original, aspectRatio } = this.dimensions;
+      return aspectRatio.original === 1 ? "square" : original.mode;
     },
     factor() {
       const { original } = this.dimensions;
