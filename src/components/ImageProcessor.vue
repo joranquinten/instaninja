@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col>
+      <v-col :cols="isImageLoaded ? 4 : 12">
         <form enctype="multipart/form-data">
           <v-file-input
             :disabled="isProcessing"
@@ -17,7 +17,7 @@
           ></v-file-input>
 
           <v-select
-            v-if="dimensions && dimensions.original"
+            v-if="isImageLoaded"
             :items="backgroundStyles"
             v-model="backgroundStyle"
             label="Select background style"
@@ -27,7 +27,7 @@
           <v-btn
             x-large
             color="pink"
-            v-if="dimensions && dimensions.original"
+            v-if="isImageLoaded"
             :disabled="isProcessing"
             @click.prevent="generate"
           >
@@ -39,12 +39,20 @@
           </v-btn>
         </form>
       </v-col>
-      <v-col>
+      <v-col cols="4">
         <slice-summary
-          v-if="dimensions && dimensions.original"
+          v-if="isImageLoaded"
           :dimensions="dimensions"
           :image-url="getImageUrl(file)"
         ></slice-summary>
+      </v-col>
+      <v-col cols="4">
+        <preview-image
+          v-if="isImageLoaded"
+          :key="getImageUrl(file)"
+          :imageUrl="getImageUrl(file)"
+          :dimensions="dimensions"
+        />
       </v-col>
     </v-row>
 
@@ -78,10 +86,12 @@ import {
 } from "@/utils/helpers";
 import { blurImage } from "@/utils/image";
 
+import PreviewImage from "./PreviewImage";
 import sliceSummary from "./Summary";
 
 export default {
   components: {
+    PreviewImage,
     sliceSummary,
   },
   data() {
@@ -95,10 +105,16 @@ export default {
       ],
       newFileName: "",
       isProcessing: false,
+      isImageLoaded: false,
       dimensions: {},
       isDone: false,
       messages: [],
     };
+  },
+  watch: {
+    file(newVal) {
+      this.isImageLoaded = !!newVal;
+    },
   },
   methods: {
     logger(message) {
@@ -197,6 +213,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.col {
+  transition: max-width ease-in-out 0.2s;
+}
 form {
   width: 100%;
 
