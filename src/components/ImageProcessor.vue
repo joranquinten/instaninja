@@ -64,7 +64,7 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <v-overlay class="in-progress" :value="isProcessing">
+    <v-overlay class="in-progress" z-index="50" :value="isProcessing">
       <v-progress-circular
         indeterminate
         color="primary"
