@@ -7,9 +7,30 @@ This is a repo that builds an electron app for Mac. The purpose of the app is to
 
 When you upload an image, the file will get analysed by the software which outputs it as a square image by taking in the longest dimension and providing a blurred instance of the image as a background. If the image is recognized as having an aspect ratio higher than 2:1, it calculates the optimal distribution of squares to split the image into.
 
+As shown in this example:
+![InstaNinja preview screen](https://raw.githubusercontent.com/joranquinten/instaninja/main/docs/assets/screenshot-01.png)
+
 For the cover image, you can optionally select the type of backdrop (blurred by default, black or white).
 
-Once the slicing is done, it'll ask for a target location and output the files to the designated folder. You can then manually upload those to Instagram.
+If you are pleased with the projected output, simply click the **Unleash _n_ ninjas** button and select and output base file:
+
+![InstaNinja select output](https://raw.githubusercontent.com/joranquinten/instaninja/main/docs/assets/screenshot-02.png)
+
+It wil start the generating process and automatically generate any required slices (as indicated by the preview) in the target location as well.
+
+So you go from:
+![Panoramic example](https://raw.githubusercontent.com/joranquinten/instaninja/main/docs/assets/example-panorama.jpeg)
+
+To this:
+
+![Sliced & blurred](https://raw.githubusercontent.com/joranquinten/instaninja/main/docs/assets/insta-ninja-sliced-blurred.jpg)
+
+And also this:
+
+![Tile 1](https://raw.githubusercontent.com/joranquinten/instaninja/main/docs/assets/insta-ninja-sliced-tile1.jpg) ![Tile 2](https://raw.githubusercontent.com/joranquinten/instaninja/main/docs/assets/insta-ninja-sliced-tile2.jpg)
+
+
+You can then manually upload those to Instagram.
 
 ### Download
 
