@@ -64,3 +64,12 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+#app {
+  .v-main,
+  .logger {
+    font-size: 0.84em;
+  }
+}
+</style>
