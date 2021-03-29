@@ -37,7 +37,7 @@ You can then manually upload those to Instagram.
 You can grab the [latest version here](https://github.com/joranquinten/instaninja/releases/latest). Mac users may need to ignore or manually enable the unsigned app warning before it'll work. If you have trust issues, you can check the code and build it yourself on (at least) any MacOS platform by following the "Running the project" steps.
 
 ### Support
-If you love to shave some time of cropping and blurring, consider [☕️ buying me a coffee](https://www.buymeacoffee.com/joranquinten)!
+If you love to shave some time of cropping and blurring, consider [buying me a coffee](https://www.buymeacoffee.com/joranquinten)!
 
 ## About the project
 

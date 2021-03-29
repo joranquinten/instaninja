@@ -1,22 +1,13 @@
 <template>
   <v-sheet class="summary" rounded v-if="dimensions">
-    <preview-image
-    :key="imageUrl"
-      v-if="imageUrl"
-      :imageUrl="imageUrl"
-      :dimensions="dimensions"
-    />
     <div
       v-html="`<p>${original} ${result} ${preview}</p><p>${nextStep}</p>`"
     ></div>
   </v-sheet>
 </template>
 <script>
-import PreviewImage from "./PreviewImage";
 export default {
-  components: {
-    PreviewImage,
-  },
+  components: {},
   props: {
     dimensions: {
       type: Object,
@@ -61,9 +52,5 @@ export default {
 .summary {
   margin: 0 0 2em;
   padding: 1em;
-
-  .example {
-    margin: 0 auto;
-  }
 }
 </style>

@@ -64,3 +64,25 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+#app {
+  .v-main,
+  .logger {
+    font-size: 0.84em;
+  }
+}
+
+// BMC Overrides
+#bmc-wbtn {
+  width: 32px !important;
+  height: 32px !important;
+  img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+div > iframe[src^="https://www.buymeacoffee.com"] {
+  bottom: 60px !important;
+}
+</style>
