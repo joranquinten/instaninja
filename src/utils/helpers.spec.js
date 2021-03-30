@@ -27,9 +27,9 @@ describe("utils/helpers", () => {
     });
 
     test("should return the aspect ratio", () => {
-      expect(processDimensions(20, 10).aspectRatio.original).toEqual(2);
-      expect(processDimensions(10, 20).aspectRatio.original).toEqual(0.5);
-      expect(processDimensions(1, 60).aspectRatio.original).toEqual(
+      expect(processDimensions(20, 10).aspectRatio).toEqual(2);
+      expect(processDimensions(10, 20).aspectRatio).toEqual(0.5);
+      expect(processDimensions(1, 60).aspectRatio).toEqual(
         0.016666666666666666
       );
     });

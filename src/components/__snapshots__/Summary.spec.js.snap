@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/Summary should render a summary in "landscape" mode 1`] = `
+<v-sheet
+  class="summary"
+  rounded=""
+>
+  <div>
+    <p>
+      I've detected a pretty landscape photo with a resolution of 
+      <strong>
+        300px
+      </strong>
+       ✕ 
+      <strong>
+        200px
+      </strong>
+       👀. I will 
+      <strong>
+        not
+      </strong>
+       slice into multiple squares, but I'll do you the favor of creating a square out of the original with a blurred background. 👌 
+    </p>
+    <p>
+      Pick a new photo, or click the Generate button to unleash slashing ninjas on your precious work of art.
+    </p>
+  </div>
+</v-sheet>
+`;
+
+exports[`components/Summary should render a summary in "portrait" mode 1`] = `
+<v-sheet
+  class="summary"
+  rounded=""
+>
+  <div>
+    <p>
+      I've detected a pretty portrait photo with a resolution of 
+      <strong>
+        200px
+      </strong>
+       ✕ 
+      <strong>
+        300px
+      </strong>
+       👀. I will 
+      <strong>
+        not
+      </strong>
+       slice into multiple squares, but I'll do you the favor of creating a square out of the original with a blurred background. 👌 
+    </p>
+    <p>
+      Pick a new photo, or click the Generate button to unleash slashing ninjas on your precious work of art.
+    </p>
+  </div>
+</v-sheet>
+`;
+
+exports[`components/Summary should render a summary in "square" mode 1`] = `
+<v-sheet
+  class="summary"
+  rounded=""
+>
+  <div>
+    <p>
+       Did you realise that it's already perfectly square? Not going to slice anything! 
+    </p>
+    <p>
+      Please pick a new photo
+    </p>
+  </div>
+</v-sheet>
+`;
+
+exports[`components/Summary should render a summary in "wide" mode 1`] = `
+<v-sheet
+  class="summary"
+  rounded=""
+>
+  <div>
+    <p>
+      I've detected a pretty landscape photo with a resolution of 
+      <strong>
+        1200px
+      </strong>
+       ✕ 
+      <strong>
+        200px
+      </strong>
+       👀. It's too wide for a square. Sooooo let's slice it up! ✂️ I will slice this into 
+      <strong>
+        6
+      </strong>
+       squares and will create a square out of the original with a blurred background. 🤙 
+    </p>
+    <p>
+      Pick a new photo, or click the Generate button to unleash slashing ninjas on your precious work of art.
+    </p>
+  </div>
+</v-sheet>
+`;

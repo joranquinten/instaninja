@@ -15,7 +15,7 @@
             @change="handleFile"
             class="uploader"
           ></v-file-input>
-
+          
           <v-select
             v-if="isImageLoaded && !isSquareImage"
             :items="backgroundStyles"
@@ -41,17 +41,22 @@
       </v-col>
       <v-col cols="4">
         <slice-summary
-          v-if="isImageLoaded"
-          :dimensions="dimensions"
+          v-if="isImageAvailable"
+          :mode="dimensions.original.mode"
+          :original-image="dimensions.original"
+          :aspect-ratio="dimensions.aspectRatio"
+          :square-count="dimensions.crop.squares.length"
           :image-url="getImageUrl(file)"
         ></slice-summary>
       </v-col>
       <v-col cols="4">
         <preview-image
-          v-if="isImageLoaded"
+          v-if="isImageAvailable"
           :key="getImageUrl(file)"
           :imageUrl="getImageUrl(file)"
-          :dimensions="dimensions"
+          :mode="dimensions.original.mode"
+          :original-image="dimensions.original"
+          :square-count="dimensions.crop.squares.length"
         />
       </v-col>
     </v-row>
@@ -215,8 +220,11 @@ export default {
         this.isImageLoaded &&
         this.dimensions &&
         this.dimensions.aspectRatio &&
-        this.dimensions.aspectRatio.original === 1
+        this.dimensions.aspectRatio === 1
       );
+    },
+    isImageAvailable() {
+      return this.isImageLoaded && this.dimensions && this.dimensions.original;
     },
   },
 };

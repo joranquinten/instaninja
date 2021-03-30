@@ -11,10 +11,10 @@
         :max-width="thumb.width"
         :max-height="thumb.height"
       />
-      <div v-if="numSlices" class="squares">
+      <div v-if="squareCount > 0" class="squares">
         <div
           :key="i"
-          v-for="i in numSlices"
+          v-for="i in squareCount"
           :style="{ width: `${slice}px`, height: `${slice}px` }"
           class="square slice"
         >
@@ -47,9 +47,18 @@ const MAX = {
 };
 export default {
   props: {
-    dimensions: {
+    mode: {
+      type: String,
+      required: true,
+    },
+    originalImage: {
       type: Object,
       required: true,
+    },
+    squareCount: {
+      type: Number,
+      required: false,
+      default: 0,
     },
     imageUrl: {
       type: String,
@@ -58,23 +67,16 @@ export default {
     },
   },
   computed: {
-    mode() {
-      const { original, aspectRatio } = this.dimensions;
-      return aspectRatio.original === 1 ? "square" : original.mode;
-    },
     factor() {
-      const { original } = this.dimensions;
       const config =
         this.mode === "landscape"
           ? { max: MAX.WIDTH, handle: "width" }
           : { max: MAX.HEIGHT, handle: "height" };
 
-      return [config.max] / original[config.handle];
+      return [config.max] / this.originalImage[config.handle];
     },
     thumb() {
-      const {
-        original: { width, height },
-      } = this.dimensions;
+      const { width, height } = this.originalImage;
       return {
         width: width * this.factor,
         height: height * this.factor,
@@ -84,7 +86,6 @@ export default {
       const {
         thumb: { width, height },
       } = this;
-
       return Math.max(width, height);
     },
     slice() {
@@ -95,13 +96,6 @@ export default {
       return this.mode === "landscape"
         ? Math.min(width, height)
         : Math.max(width, height);
-    },
-    numSlices() {
-      const {
-        crop: { squares },
-      } = this.dimensions;
-
-      return squares.length;
     },
   },
 };

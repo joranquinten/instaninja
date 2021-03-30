@@ -33,9 +33,7 @@ export const processDimensions = (width, height) => {
       height,
       mode,
     },
-    aspectRatio: {
-      original: width / height,
-    },
+    aspectRatio: width / height,
     crop: {
       offset,
       square,
