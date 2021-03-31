@@ -1,11 +1,17 @@
 jest.mock("electron", () => ({
   remote: {
-    dialog: jest.fn(),
+    dialog: {
+      showSaveDialog: jest.fn(),
+    },
+    getCurrentWindow: jest.fn(),
   },
 }));
 
+const electron = require("electron");
+
 import { shallowMount } from "@vue/test-utils";
 
+import { DEFAULT_IMAGE_DIALOG_OPTIONS } from "@/utils/constants";
 import ImageProcessor from "./ImageProcessor";
 
 describe("components/ImageProcessor", () => {
@@ -57,6 +63,65 @@ describe("components/ImageProcessor", () => {
         expect(wrapper.vm.file).toEqual(originalValues.file);
         expect(wrapper.vm.isProcessing).toEqual(originalValues.isProcessing);
         expect(wrapper.vm.dimensions).toEqual({});
+      });
+    });
+
+    describe("getImageUrl", () => {
+      beforeEach(() => {
+        global.URL.createObjectURL = jest.fn((input) => input);
+      });
+
+      test("should return nothing if no `path` is provided", () => {
+        expect(wrapper.vm.getImageUrl()).toBeUndefined();
+      });
+
+      test("should return nothing if no `path` is provided", () => {
+        expect(wrapper.vm.getImageUrl("mock/path")).toEqual("mock/path");
+      });
+    });
+
+    describe("handleFile", () => {
+      beforeEach(() => {
+        wrapper.vm.getImageUrl = jest.fn((input) => input);
+      });
+
+      test("should call the getImageUrl function and place load the value on the src attribute", () => {
+        wrapper.setData({ file: "example.jpg" });
+        wrapper.vm.handleFile();
+
+        expect(wrapper.vm.getImageUrl).toHaveBeenCalledWith("example.jpg");
+      });
+    });
+
+    describe("getFilePath", () => {
+      test("should call the showSaveDialog from electron width the default options", () => {
+        wrapper.vm.getFilePath();
+
+        const DEFAULT_OPTIONS = {
+          ...DEFAULT_IMAGE_DIALOG_OPTIONS,
+          defaultPath: "example.jpg",
+        };
+
+        expect(electron.remote.dialog.showSaveDialog).toHaveBeenCalled();
+        expect(electron.remote.dialog.showSaveDialog).toHaveBeenCalledWith(
+          undefined,
+          DEFAULT_OPTIONS
+        );
+      });
+
+      test("should call the showSaveDialog from electron with the provided filename", () => {
+        wrapper.vm.getFilePath("filename.jpg");
+
+        const SET_OPTIONS = {
+          ...DEFAULT_IMAGE_DIALOG_OPTIONS,
+          defaultPath: "filename.jpg",
+        };
+
+        expect(electron.remote.dialog.showSaveDialog).toHaveBeenCalled();
+        expect(electron.remote.dialog.showSaveDialog).toHaveBeenCalledWith(
+          undefined,
+          SET_OPTIONS
+        );
       });
     });
   });
