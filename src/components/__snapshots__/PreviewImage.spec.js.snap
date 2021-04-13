@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components/PreviewImage should render a summary in "landscape" mode 1`] = `
+<figure
+  aspectratio="1.5"
+>
+  <div
+    class="preview"
+    style="width: 240px; height: 240px;"
+  >
+    <!---->
+     
+    <!---->
+     
+    <div
+      class="square crop landscape"
+      style="width: 240px; height: 240px;"
+    >
+      
+      Crop
+    
+    </div>
+  </div>
+   
+  <figcaption>
+    
+    ☝️ Expected slices
+  
+  </figcaption>
+</figure>
+`;
+
+exports[`components/PreviewImage should render a summary in "portrait" mode 1`] = `
+<figure
+  aspectratio="0.75"
+>
+  <div
+    class="preview"
+    style="width: 200px; height: 200px;"
+  >
+    <!---->
+     
+    <!---->
+     
+    <div
+      class="square crop"
+      style="width: 200px; height: 200px;"
+    >
+      
+      Square
+    
+    </div>
+  </div>
+   
+  <figcaption>
+    
+    ☝️ Expected slices
+  
+  </figcaption>
+</figure>
+`;
+
+exports[`components/PreviewImage should render a summary in "square" mode 1`] = `
+<figure
+  aspectratio="1"
+>
+  <div
+    class="preview"
+    style="width: 200px; height: 200px;"
+  >
+    <!---->
+     
+    <!---->
+     
+    <!---->
+  </div>
+   
+  <figcaption>
+    
+    👀 Look! It's already square!
+  
+  </figcaption>
+</figure>
+`;
+
+exports[`components/PreviewImage should render a summary in "wide" mode 1`] = `
+<figure
+  aspectratio="6"
+>
+  <div
+    class="preview"
+    style="width: 240px; height: 240px;"
+  >
+    <!---->
+     
+    <div
+      class="squares"
+    >
+      <div
+        class="square slice"
+        style="width: 40px; height: 40px;"
+      >
+        
+        Slice 1
+      
+      </div>
+      <div
+        class="square slice"
+        style="width: 40px; height: 40px;"
+      >
+        
+        Slice 2
+      
+      </div>
+      <div
+        class="square slice"
+        style="width: 40px; height: 40px;"
+      >
+        
+        Slice 3
+      
+      </div>
+      <div
+        class="square slice"
+        style="width: 40px; height: 40px;"
+      >
+        
+        Slice 4
+      
+      </div>
+      <div
+        class="square slice"
+        style="width: 40px; height: 40px;"
+      >
+        
+        Slice 5
+      
+      </div>
+      <div
+        class="square slice"
+        style="width: 40px; height: 40px;"
+      >
+        
+        Slice 6
+      
+      </div>
+    </div>
+     
+    <div
+      class="square crop landscape"
+      style="width: 240px; height: 240px;"
+    >
+      
+      Crop
+    
+    </div>
+  </div>
+   
+  <figcaption>
+    
+    ☝️ Expected slices
+  
+  </figcaption>
+</figure>
+`;
