@@ -1,3 +1,5 @@
+[![PR Stable](https://github.com/joranquinten/instaninja/actions/workflows/on-push.yml/badge.svg)](https://github.com/joranquinten/instaninja/actions/workflows/on-push.yml)
+
 # ![InstaNinja](https://raw.githubusercontent.com/joranquinten/instaninja/main/src/assets/icons/png/32x32.png) Insta**Ninja**
 
 This is a repo that builds an electron app for Mac. The purpose of the app is to make it as easy as possible to generate [Instagram](https://instagram.com) ready images out of source files (targeted at swipeable panoramas).
