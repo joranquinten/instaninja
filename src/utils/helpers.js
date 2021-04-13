@@ -1,8 +1,14 @@
 const MODE_LANDSCAPE = "landscape";
 const MODE_PORTRAIT = "portrait";
+const MODE_SQUARE = "square";
 
 export const processDimensions = (width, height) => {
-  const mode = width > height ? MODE_LANDSCAPE : MODE_PORTRAIT;
+  const mode =
+    width === height
+      ? MODE_SQUARE
+      : width > height
+      ? MODE_LANDSCAPE
+      : MODE_PORTRAIT;
 
   const square = mode === MODE_LANDSCAPE ? height : width;
   const squareCount = Math.floor(width / height);
@@ -17,7 +23,7 @@ export const processDimensions = (width, height) => {
     squares = [...new Array(squareCount)].map((sqr, i) => ({
       i,
       startX: i * square + offset.x,
-      endX: i + 1 * (square + offset.x),
+      endX: i * square + offset.x + square,
     }));
   }
 
@@ -27,9 +33,7 @@ export const processDimensions = (width, height) => {
       height,
       mode,
     },
-    aspectRatio: {
-      original: width / height,
-    },
+    aspectRatio: width / height,
     crop: {
       offset,
       square,
@@ -41,7 +45,7 @@ export const processDimensions = (width, height) => {
   };
 };
 
-export const getFileNameFromPath = (path) => {
+export const getFileNameFromPath = (path = "") => {
   const fileName = path.split("/").reverse()[0];
   return fileName
     .split(".")
@@ -67,7 +71,10 @@ export const suffixFileName = (path = "", suffix = "") => {
   return levels
     .map((level, i) => {
       if (i === levels.length - 1 && safeSuffix !== "") {
-        return level.replaceAll(`${fileName}.`, `${fileName}-${safeSuffix}.`);
+        return level.replace(
+          new RegExp(`${fileName}.`, "gi"),
+          `${fileName}-${safeSuffix}.`
+        );
       }
       return level;
     })

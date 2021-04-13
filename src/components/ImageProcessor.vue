@@ -41,17 +41,22 @@
       </v-col>
       <v-col cols="4">
         <slice-summary
-          v-if="isImageLoaded"
-          :dimensions="dimensions"
+          v-if="isImageAvailable"
+          :mode="dimensions.original.mode"
+          :original-image="dimensions.original"
+          :aspect-ratio="dimensions.aspectRatio"
+          :square-count="dimensions.crop.squares.length"
           :image-url="getImageUrl(file)"
         ></slice-summary>
       </v-col>
       <v-col cols="4">
         <preview-image
-          v-if="isImageLoaded"
+          v-if="isImageAvailable"
           :key="getImageUrl(file)"
           :imageUrl="getImageUrl(file)"
-          :dimensions="dimensions"
+          :mode="dimensions.original.mode"
+          :original-image="dimensions.original"
+          :square-count="dimensions.crop.squares.length"
         />
       </v-col>
     </v-row>
@@ -84,6 +89,7 @@ import {
   suffixFileName,
   getBackgroundStyle,
 } from "@/utils/helpers";
+import { DEFAULT_IMAGE_DIALOG_OPTIONS } from "@/utils/constants";
 import { blurImage } from "@/utils/image";
 
 import PreviewImage from "./PreviewImage";
@@ -144,14 +150,8 @@ export default {
       const browserWindow = electron.remote.getCurrentWindow();
 
       const options = {
-        title: "Save file",
+        ...DEFAULT_IMAGE_DIALOG_OPTIONS,
         defaultPath: filename,
-        buttonLabel: "Save",
-
-        filters: [
-          { name: "jpg", extensions: ["jpg", "jpeg"] },
-          { name: "All Files", extensions: ["*"] },
-        ],
       };
 
       return await dialog.showSaveDialog(browserWindow, options);
@@ -161,23 +161,19 @@ export default {
       this.isProcessing = true;
       this.isDone = false;
       const data = this.file;
-
       this.newFileName = await this.getFilePath("insta-ninja-sliced.jpg");
       const { filePath } = this.newFileName;
       const backgroundStyle = getBackgroundStyle(this.backgroundStyle);
       const fileName = suffixFileName(filePath, backgroundStyle);
-
       const blurredImage = await blurImage(
         data.path,
         this.dimensions.crop.square,
         this.dimensions.original.mode,
         backgroundStyle
       );
-
       const {
         crop: { squares },
       } = this.dimensions;
-
       if (squares.length > 1) {
         const {
           crop: { square, offset },
@@ -196,14 +192,12 @@ export default {
           this.logger(`Generated: ${fileName}`);
         });
       }
-
       try {
         await sharp(blurredImage).toFile(fileName);
         this.logger(`Generated: ${fileName}`);
       } catch (e) {
         throw e.message;
       }
-
       this.isProcessing = false;
       this.isDone = true;
       this.reset();
@@ -215,8 +209,11 @@ export default {
         this.isImageLoaded &&
         this.dimensions &&
         this.dimensions.aspectRatio &&
-        this.dimensions.aspectRatio.original === 1
+        this.dimensions.aspectRatio === 1
       );
+    },
+    isImageAvailable() {
+      return this.isImageLoaded && this.dimensions && this.dimensions.original;
     },
   },
 };
