@@ -58,13 +58,13 @@ This project is built with Electron and VueJS and it's fairly easy to modify to 
 
 Follow the steps below to get your own instance up and running. If you feel like contributing, please feel free to [contact me](mailto:joran@joranquinten.nl).
 
-I happen to use `yarn`, but I'm sure you can figure out the `npm` counter parts for the following commands.
+This project uses `npm` as the package manager for managing dependencies and running scripts.
 ## Project setup
 
 To setup the project, clone the repository to your local machine and in the folder (from the terminal) execute:
 
 ```
-yarn install
+npm install
 ```
 
 This will install all of the dependencies to the local folder.
@@ -74,7 +74,7 @@ This will install all of the dependencies to the local folder.
 In order to develop, it's just as easy to spin up an electron instance with the following command:
 
 ```
-yarn electron:serve
+npm run electron:serve
 ```
 
 It offers the same dev tools you'd use for web development and has hot reloading enabled, so development is just as easy as coding in VueJS is!
@@ -84,7 +84,7 @@ It offers the same dev tools you'd use for web development and has hot reloading
 If you want to build an application out of the source code, kill the development command and enter the following:
 
 ```
-yarn electron:build
+npm run electron:build
 ```
 
 For this, you may need a while and also, you might run into notifications about being an Apple developer and having some sort of development ID. If all succeeded, a `.dmg` file (among other things) has been generated in the `dist_electron` folder. That's it! 👌
